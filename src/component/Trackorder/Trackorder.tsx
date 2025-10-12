@@ -96,7 +96,7 @@ export default function Trackorder() {
         }
 
         const data = await res.json();
-        setUserData(data.user); // make sure your API returns { user: {...} }
+        setUserData(data.user); 
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -277,6 +277,7 @@ export default function Trackorder() {
                         {[
                           "Order Placed",
                           "Shipped",
+                          "Hold",
                           "Available for pickup",
                           "Delivered",
                         ].map((step, index) => {
