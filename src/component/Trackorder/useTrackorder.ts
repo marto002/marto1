@@ -7,9 +7,11 @@ interface ParcelInfo {
   length: number;
   width: number;
   height: number;
+  Quantity:number;
   Sendernumber:string;
+  Receivernumber:string;
   Receivername:string;
-  Address:string;
+  Receiveraddress:string;
   Sendername:string;
   Senderaddress:string;
   Content:string;

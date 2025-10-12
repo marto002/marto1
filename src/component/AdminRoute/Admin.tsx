@@ -5,9 +5,11 @@ interface Parcel {
   length: number;
   width: number;
   height: number;
+  Quantity:number;
+  Receivernumber: string;
   Sendernumber: string;
   Receivername: string;
-  Address: string;
+  Receiveraddress: string;
   Sendername: string;
   Senderaddress: string;
   Content: string;
@@ -135,6 +137,7 @@ export default function Admin() {
                                 "None",
                                 "Placed",
                                 "Packed",
+                                "Hold",
                                 "Shipped",
                                 "Delivered",
                               ].map((step) => (
@@ -164,18 +167,22 @@ export default function Admin() {
                             <ul className="list-disc pl-4">
                               {user.parcels.map((parcel, idx) => (
                                 <li key={idx}>
-                                  Address: {parcel.Address} 
+                                  Receiveraddress: {parcel.Receiveraddress}
                                   <br />→ Content: {parcel.Content}
                                   <br /> → Receivername: {parcel.Receivername}
                                   <br /> → Senderaddress: {parcel.Senderaddress}
                                   <br /> → Sendername: {parcel.Sendername}
                                   <br /> → Sendernumber: {parcel.Sendernumber}
+                                  <br /> → Receivernumber: {parcel.Receivernumber}
                                   <br /> → Content: {parcel.Content}
                                   <br /> → weight: ({parcel.weight}kg)
-                                  <br /> → width: ({parcel.width}kg) 
+                                  <br /> → width: ({parcel.width}kg)
                                   <br /> →length:({parcel.length}kg)
-                                  <br /> → height:({parcel.height}kg) 
-                                  <br /> → deliveryDate:({parcel.Deliverydate}) <br />
+                                  <br /> → height:({parcel.height}kg)
+                                  <br /> → Quantity:({parcel.Quantity})
+                                  <br /> → deliveryDate:({
+                                    parcel.Deliverydate
+                                  }) <br />
                                 </li>
                               ))}
                             </ul>

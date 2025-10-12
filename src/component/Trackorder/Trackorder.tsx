@@ -18,9 +18,11 @@ interface Parcel {
   length: number;
   width: number;
   height: number;
+  Quantity:number;
+  Receivernumber: string;
   Sendernumber: string;
   Receivername: string;
-  Address: string;
+  Receiveraddress: string;
   Sendername: string;
   Senderaddress: string;
   Content: string;
@@ -77,7 +79,7 @@ export default function Trackorder() {
     fetchStatus();
   }, []);
 
-  const visibleStatuses = ["Packed", "Placed", "Delivered", "Shipped"];
+  const visibleStatuses = ["Placed", "Packed", "Hold", "Delivered", "Shipped"];
 
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -160,7 +162,18 @@ export default function Trackorder() {
                               <thead className="bg-gray-100">
                                 <tr>
                                   <th className="border px-4 py-2">#</th>
-                                  <th className="border px-4 py-2">Address</th>
+                                   <th className="border px-4 py-2">
+                                    Sendername
+                                  </th>
+                                   <th className="border px-4 py-2">
+                                    Sendernumber
+                                  </th>
+                                   <th className="border px-4 py-2">
+                                    Senderaddress
+                                  </th>
+                                  <th className="border px-4 py-2">
+                                    Receiveraddress
+                                  </th>
                                   <th className="border px-4 py-2">Content</th>
                                   <th className="border px-4 py-2">
                                     Weight (kg)
@@ -174,16 +187,18 @@ export default function Trackorder() {
                                   <th className="border px-4 py-2">
                                     Width (kg)
                                   </th>
+                                 
                                   <th className="border px-4 py-2">
                                     Receivername
+                                  </th> <th className="border px-4 py-2">
+                                    Quantity
                                   </th>
                                   <th className="border px-4 py-2">
-                                    Senderaddress
+                                    Receivernumber
                                   </th>
+                                  
 
-                                  <th className="border px-4 py-2">
-                                    Sendername
-                                  </th>
+                                 
                                   <th className="border px-4 py-2">
                                     deliveryDate
                                   </th>
@@ -196,7 +211,16 @@ export default function Trackorder() {
                                       {index + 1}
                                     </td>
                                     <td className="border px-4 py-2">
-                                      {parcel.Address}
+                                      {parcel.Sendername}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {parcel.Sendernumber}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {parcel.Senderaddress}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {parcel.Receiveraddress}
                                     </td>
                                     <td className="border px-4 py-2">
                                       {parcel.Content}
@@ -213,16 +237,23 @@ export default function Trackorder() {
                                     <td className="border px-4 py-2">
                                       {parcel.width}(kg)
                                     </td>
-                                    <td className="border px-4 py-2">
+                                    
+ <td className="border px-4 py-2">
                                       {parcel.Receivername}
                                     </td>
                                     <td className="border px-4 py-2">
-                                      {parcel.Senderaddress}
+                                      {parcel.Quantity}
                                     </td>
 
                                     <td className="border px-4 py-2">
-                                      {parcel.Sendername}
+                                      {parcel.Receivernumber}
                                     </td>
+                                     
+
+                                   
+                                    
+
+                                   
                                     <td className="border px-4 py-2">
                                       {parcel.Deliverydate}
                                     </td>
@@ -252,6 +283,7 @@ export default function Trackorder() {
                           const stepsOrder = [
                             "Placed",
                             "Packed",
+                            "Hold",
                             "Shipped",
                             "Delivered",
                           ];

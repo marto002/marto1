@@ -13,14 +13,15 @@ interface FormValues {
   length: number;
   width: number;
   height: number;
+  Receivernumber: string;
   Sendernumber: string;
+Quantity:number
   Receivername: string;
-  Address: string;
+  Receiveraddress: string;
   Sendername: string;
   Senderaddress: string;
   Content: string;
   Deliverydate: string;
-  
 }
 
 export default function Home() {
@@ -30,13 +31,11 @@ export default function Home() {
 
   const [defaultCountry, setDefaultCountry] = useState("us");
 
-useEffect(() => {
-  fetch("https://ipapi.co/json/")
-    .then((res) => res.json())
-    .then((data) => setDefaultCountry(data.country_code.toLowerCase()));
-}, []);
-
-
+  useEffect(() => {
+    fetch("https://ipapi.co/json/")
+      .then((res) => res.json())
+      .then((data) => setDefaultCountry(data.country_code.toLowerCase()));
+  }, []);
 
   const {
     register,
@@ -50,10 +49,11 @@ useEffect(() => {
       length: 0,
       width: 0,
       height: 0,
+      Quantity:0,
       Sendernumber: "",
-   
+      Receivernumber:"",
       Receivername: "",
-      Address: "",
+      Receiveraddress: "",
       Sendername: "",
       Senderaddress: "",
       Deliverydate: "",
@@ -112,83 +112,81 @@ useEffect(() => {
 
         {/* FROM + TO */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 ">
-         
-            
-           
-              <div>
-                {" "}
-                <label className="block text-sm font-semibold mb-1 text-white">
-                  Sender Address*
-                </label>
-                <input
-                  {...register("Senderaddress", {
-                    required: "Please enter a starting location.",
-                  })}
-                  placeholder="5672 Stoneridge Dr Suite 100,Pleasanton, CA 94588"
-                  className={`border rounded-md p-2 w-full  text-white ${
-                    errors.Senderaddress
-                      ? "border-white focus:ring-red-400"
-                      : "border-white "
-                  }`}
-                />
-                {errors.Senderaddress && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.Senderaddress.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                {" "}
-                <label className="block text-sm font-semibold mb-1 text-white">
-                  Address*
-                </label>
-                <input
-                  {...register("Address", {
-                    required: "Please enter a starting location.",
-                  })}
-                  placeholder="11131 ViOLETA StREET VENTURA CA 93004"
-                  className={`border rounded-md p-2 w-full  text-white ${
-                    errors.Address
-                      ? "border-white focus:ring-red-400"
-                      : "border-white "
-                  }`}
-                />
-                {errors.Address && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.Address.message}
-                  </p>
-                )}{" "}
-              </div>
-            
+          <div>
+            {" "}
+            <label className="block text-sm font-semibold mb-1 text-white">
+              Sender Address*
+            </label>
+            <input
+              {...register("Senderaddress", {
+                required: "Please enter the Senderaddres location.",
+              })}
+              placeholder="5672 Stoneridge Dr Suite 100,Pleasanton, CA 94588"
+              className={`border rounded-md p-2 w-full  text-white ${
+                errors.Senderaddress
+                  ? "border-white focus:ring-red-400"
+                  : "border-white "
+              }`}
+            />
+            {errors.Senderaddress && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.Senderaddress.message}
+              </p>
+            )}
+          </div>
+          <div>
+            {" "}
+            <label className="block text-sm font-semibold mb-1 text-white">
+              Receiveraddress*
+            </label>
+            <input
+              {...register("Receiveraddress", {
+                required: "Please enter the Receiveraddress location.",
+              })}
+              placeholder="11131 ViOLETA StREET VENTURA CA 93004"
+              className={`border rounded-md p-2 w-full  text-white ${
+                errors.Receiveraddress
+                  ? "border-white focus:ring-red-400"
+                  : "border-white "
+              }`}
+            />
+            {errors.Receiveraddress && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.Receiveraddress.message}
+              </p>
+            )}{" "}
+          </div>
 
-            
-<div> <label className="block text-sm font-semibold mb-1 text-white">
+          <div>
+            {" "}
+            <label className="block text-sm font-semibold mb-1 text-white">
               Sender name*
             </label>
             <input
               {...register("Sendername", {
-                required: "Please enter a starting location.",
+                required: "Please enter the Sendername.",
               })}
               placeholder="Laborers trustfunds"
-             
-
-               className={`border rounded-md p-2 w-full  text-white ${
-              errors.Sendername
-                ? "border-white focus:ring-red-400"
-                : "border-white "
-            }`}
+              className={`border rounded-md p-2 w-full  text-white ${
+                errors.Sendername
+                  ? "border-white focus:ring-red-400"
+                  : "border-white "
+              }`}
             />
             {errors.Sendername && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.Sendername.message}
               </p>
-            )}</div>
-<div> <label className="block text-sm font-semibold mb-1 text-white">
+            )}
+          </div>
+          <div>
+            {" "}
+            <label className="block text-sm font-semibold mb-1 text-white">
               Receiver name*
             </label>
             <input
               {...register("Receivername", {
-                required: "Please enter a starting location.",
+                required: "Please enter the Receivername.",
               })}
               placeholder="Patricia Hairston"
               className={`border rounded-md p-2 w-full  text-white ${
@@ -201,16 +199,16 @@ useEffect(() => {
               <p className="text-red-500 text-sm mt-1">
                 {errors.Receivername.message}
               </p>
-            )}</div>       
-                  
+            )}
+          </div>
 
-
-            <div ><label className="block text-sm font-semibold mb-1 text-white">
+          <div>
+            <label className="block text-sm font-semibold mb-1 text-white">
               Content*
             </label>
             <input
               {...register("Content", {
-                required: "Please enter a starting location.",
+                required: "Please enter the Content of your package.",
               })}
               placeholder=" Trustfund Authorize License Claiming  Key"
               className={`border rounded-md p-2 w-full  text-white ${
@@ -223,17 +221,18 @@ useEffect(() => {
               <p className="text-red-500 text-sm mt-1">
                 {errors.Content.message}
               </p>
-            )}</div>
-            <div>
+            )}
+          </div>
+          <div>
             <label className="block text-sm font-semibold mb-1 text-white">
               Sender number*
             </label>
-             <Controller
-        name="Sendernumber"
-        control={control}
-         
-        rules={{ required: "Phone number is required",
-          
+            <Controller
+              name="Sendernumber"
+              control={control}
+              rules={{
+                required: "Phone number is required",
+
                 pattern: {
                   value: /^[0-9]+$/,
                   message: "Phone number must contain only digits",
@@ -246,48 +245,112 @@ useEffect(() => {
                   value: 15,
                   message: "Phone number cannot exceed 15 digits",
                 },
-             
-         }}
-        
-        render={({ field: { onChange, value } }) => (
-            <PhoneInput
-             
-             onChange={(phone) => onChange(phone)}
-            country={defaultCountry}
-            enableSearch={true}
-            inputStyle={{
-              width: "100%",
-              borderRadius: "8px",
-              padding: "12px 48px 12px 58px",
-              border: "1px solid #ccc",
-              
-              color: "#000",
-            }}
-            buttonStyle={{
-              border: "none",
-              
-            }}
-            dropdownStyle={{
-              background: "red",
-              color: "#fff",
-            }}
+              }}
+              render={({ field: { onChange, value } }) => (
+                <PhoneInput
+                  onChange={(phone) => onChange(phone)}
+                  country={defaultCountry}
+                  enableSearch={true}
+                  inputStyle={{
+                    width: "100%",
+                    borderRadius: "8px",
+                    padding: "12px 48px 12px 58px",
+                    border: "1px solid #ccc",
 
-             
-             
+                    color: "#000",
+                  }}
+                  buttonStyle={{
+                    border: "none",
+                  }}
+                  dropdownStyle={{
+                    background: "red",
+                    color: "#fff",
+                  }}
+                />
+              )}
             />
-             )}/>
 
-
-            
             {errors.Sendernumber && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.Sendernumber.message}
               </p>
             )}
           </div>
-          
+          <div>
+            <label className="block text-sm font-semibold mb-1 text-white">
+              Receiver number
+            </label>
+            <Controller
+              name="Receivernumber"
+              control={control}
+              rules={{
+                required: "Receiver Phone number is required",
 
-        
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Phone number must contain only digits",
+                },
+                minLength: {
+                  value: 10,
+                  message: "Phone number must be at least 10 digits",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "Phone number cannot exceed 15 digits",
+                },
+              }}
+              render={({ field: { onChange, value } }) => (
+                <PhoneInput
+                  onChange={(phone) => onChange(phone)}
+                  country={defaultCountry}
+                  enableSearch={true}
+                  inputStyle={{
+                    width: "100%",
+                    borderRadius: "8px",
+                    padding: "12px 48px 12px 58px",
+                    border: "1px solid #ccc",
+
+                    color: "#000",
+                  }}
+                  buttonStyle={{
+                    border: "none",
+                  }}
+                  dropdownStyle={{
+                    background: "red",
+                    color: "#fff",
+                  }}
+                />
+              )}
+            />
+
+            {errors.Receivernumber && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.Receivernumber.message}
+              </p>
+            )}
+          </div>
+           <div>
+            <label className="block text-sm font-semibold mb-1 text-white">
+              Quantity *
+            </label>
+            <input
+              type="number"
+              {...register("Quantity", {
+                required: "quantity is required.",
+                min: { value: 1, message: "Quantity must be greater than 0." },
+              })}
+              className={`border rounded-md p-2 w-full text-white ${
+                errors.Quantity
+                  ? "border-white focus:ring-red-400"
+                  : "border-white focus:ring-yellow-500"
+              }`}
+            />
+            {errors.Quantity && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.Quantity.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="mb-6">
@@ -403,7 +466,6 @@ useEffect(() => {
             )}
           </div>
         </div>
-       
 
         {/* SUBMIT BUTTON */}
         <button
@@ -416,93 +478,3 @@ useEffect(() => {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-
-
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import PhoneInput from "react-phone-input-2";
-
-type FormValues = {
-  phone: string;
-};
-
-
-export default function Home() {
-  
-const [defaultCountry, setDefaultCountry] = useState("us");
-
-useEffect(() => {
-  fetch("https://ipapi.co/json/")
-    .then((res) => res.json())
-    .then((data) => setDefaultCountry(data.country_code.toLowerCase()));
-}, []);
-  const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: { phone: "" },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    console.log("Phone Data:", data);
-  };
-
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 max-w-sm mx-auto mt-10"
-    >
-      <label className="text-white text-sm font-medium">Phone Number</label>
-      <Controller
-        name="phone"
-        control={control}
-        rules={{ required: "Phone number is required" }}
-        render={({ field }) => (
-          <PhoneInput
-            {...field}
-            
-            country={defaultCountry}
-            enableSearch={true}
-            inputStyle={{
-              width: "100%",
-              borderRadius: "8px",
-              padding: "12px 48px 12px 58px",
-              border: "1px solid #ccc",
-              background: "#1a1a1a",
-              color: "#fff",
-            }}
-            buttonStyle={{
-              border: "none",
-              background: "#1a1a1a",
-            }}
-            dropdownStyle={{
-              background: "#1a1a1a",
-              color: "#fff",
-            }}
-          />
-        )}
-      />
-
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500"
-      >
-        Submit
-      </button>
-    </form>
-  );
-}*/

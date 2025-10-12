@@ -12,8 +12,10 @@ weight: number;
   width: number;
   height: number;
   Sendernumber:string;
+  Quantity:number;
+  Receivernumber:string;
   Receivername:string;
-  Address:string;
+  Receiveraddress:string;
   Sendername:string;
   Senderaddress:string;
   Content:string;
@@ -36,11 +38,13 @@ const ParcelSchema = new Schema<ParcelInfo>({
   length: Number,
   width: Number,
   height: Number,
+  Quantity:Number,
   Deliverydate:String,
   Content:String,
-  Sendernumber:Number,
+  Sendernumber:String,
+  Receivernumber:String,
   Receivername:String,
-  Address:String,
+  Receiveraddress:String,
   Sendername:String,
   Senderaddress:String,
 
