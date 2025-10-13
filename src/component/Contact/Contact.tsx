@@ -44,9 +44,9 @@ export default function Contact() {
           </div>
           <div className="flex">
             <p className="text-[#999] font-semibold">Email :</p>
-            <Link href={"info@martocourierltd.com"}>
-              info@martocourierltd.com
-            </Link>
+            <Link href={"mailto:info@martoshippingltd.com"}>
+                info@martoshippingltd.com
+              </Link>
            
           </div>
           <div className="flex">
