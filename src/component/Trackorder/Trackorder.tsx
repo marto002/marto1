@@ -3,6 +3,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import Home from "./Home";
+import Link from "next/link";
 
 type Userr = {
   status?: string;
@@ -18,7 +19,7 @@ interface Parcel {
   length: number;
   width: number;
   height: number;
-  Quantity:number;
+  Quantity: number;
   Receivernumber: string;
   Sendernumber: string;
   Receivername: string;
@@ -96,7 +97,7 @@ export default function Trackorder() {
         }
 
         const data = await res.json();
-        setUserData(data.user); 
+        setUserData(data.user);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -152,187 +153,94 @@ export default function Trackorder() {
 
                         <p className="text-xl text-[#33accc]">
                           <span className="text-white font-medium">
-                            Your Tracking order is : {userData.trackingId}
+                            Your Tracking order is :{" "}
+                            {userData.trackingId?.slice(0, 13)}
                           </span>
                         </p>
 
                         {userData.parcels && userData.parcels.length > 0 ? (
-                          <div className="md:overflow-auto overflow-x-auto ">
-                            <table className="min-w-full  border border-gray-300 text-sm text-left">
-                              <thead className="bg-gray-100">
-                                <tr>
-                                  <th className="border px-4 py-2">#</th>
-                                   <th className="border px-4 py-2">
-                                    Sendername
-                                  </th>
-                                   <th className="border px-4 py-2">
-                                    Sendernumber
-                                  </th>
-                                   <th className="border px-4 py-2">
-                                    Senderaddress
-                                  </th>
-                                  <th className="border px-4 py-2">
-                                    Receiveraddress
-                                  </th>
-                                  <th className="border px-4 py-2">Content</th>
-                                  <th className="border px-4 py-2">
-                                    Weight (kg)
-                                  </th>
-                                  <th className="border px-4 py-2">
-                                    Height (kg)
-                                  </th>
-                                  <th className="border px-4 py-2">
-                                    Length (kg)
-                                  </th>
-                                  <th className="border px-4 py-2">
-                                    Width (kg)
-                                  </th>
-                                 
-                                  <th className="border px-4 py-2">
-                                    Receivername
-                                  </th> <th className="border px-4 py-2">
-                                    Quantity
-                                  </th>
-                                  <th className="border px-4 py-2">
-                                    Receivernumber
-                                  </th>
-                                  
+                          <div className="mt-6 ">
+                            {visibleStatuses.includes(status || "") ? (
+                              <div className="flex flex-col items-center justify-between mb-4">
+                                {[
+                                  "Order Placed",
+                                  "Shipped",
+                                  "Hold",
+                                  "Available for pickup",
+                                  "Delivered",
+                                ].map((step, index) => {
+                                  const stepsOrder = [
+                                    "Placed",
+                                    "Packed",
+                                    "Hold",
+                                    "Shipped",
+                                    "Delivered",
+                                  ];
+                                  const currentStepIndex = stepsOrder.indexOf(
+                                    status || "None"
+                                  );
+                                  const isActive = index <= currentStepIndex;
 
-                                 
-                                  <th className="border px-4 py-2">
-                                    deliveryDate
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {userData.parcels.map((parcel, index) => (
-                                  <tr key={index} className="hover:bg-gray-50">
-                                    <td className="border px-4 py-2">
-                                      {index + 1}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Sendername}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Sendernumber}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Senderaddress}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Receiveraddress}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Content}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.weight}(kg)
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.height}(kg)
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.length}(kg)
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.width}(kg)
-                                    </td>
-                                    
- <td className="border px-4 py-2">
-                                      {parcel.Receivername}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                      {parcel.Quantity}
-                                    </td>
+                                  return (
+                                    <div
+                                      key={step}
+                                      className="flex flex-col items-center mx-4"
+                                    >
+                                      {/* round div */}
+                                      <div
+                                        className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
+                                          isActive
+                                            ? "bg-[#33accc]"
+                                            : "bg-gray-300"
+                                        }`}
+                                      >
+                                        {isActive ? "✓" : ""}
+                                      </div>
 
-                                    <td className="border px-4 py-2">
-                                      {parcel.Receivernumber}
-                                    </td>
-                                     
+                                      {/* label */}
+                                      <span className="mt-2 text-sm text-black">
+                                        {step}
+                                      </span>
 
-                                   
-                                    
-
-                                   
-                                    <td className="border px-4 py-2">
-                                      {parcel.Deliverydate}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                                      {/* connecting line (optional) */}
+                                      {index < stepsOrder.length - 1 && (
+                                        <div
+                                          className={`h-12 w-1 ${
+                                            index < currentStepIndex
+                                              ? "bg-[#33accc]"
+                                              : "bg-gray-300"
+                                          }`}
+                                        ></div>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className="flex flex-col items-center justify-center mt-4">
+                                <div className="loading-spinner border-4 border-t-[#33accc] border-gray-300 rounded-full w-8 h-8 animate-spin"></div>
+                                <p className="mt-3 text-black text-xl font-medium">
+                                  Processing your order...
+                                </p>
+                              </div>
+                            )}
                           </div>
                         ) : (
-                          <p>No parcels found</p>
+                          <>
+                            <p className="text-red-400 text-2xl">
+                              No parcels found
+                            </p>
+                            <Link
+                              href={"/getaquote"}
+                              className="text-white cursor-pointer hover:underline"
+                            >
+                              Do you want to ship a parcel
+                            </Link>
+                          </>
                         )}
                       </>
                     ) : (
                       <p>No user data available</p>
-                    )}
-                  </div>
-
-                  <div className="mt-6 ">
-                    {visibleStatuses.includes(status || "") ? (
-                      <div className="flex flex-col items-center justify-between mb-4">
-                        {[
-                          "Order Placed",
-                          "Shipped",
-                          "Hold",
-                          "Available for pickup",
-                          "Delivered",
-                        ].map((step, index) => {
-                          const stepsOrder = [
-                            "Placed",
-                            "Packed",
-                            "Hold",
-                            "Shipped",
-                            "Delivered",
-                          ];
-                          const currentStepIndex = stepsOrder.indexOf(
-                            status || "None"
-                          );
-                          const isActive = index <= currentStepIndex;
-
-                          return (
-                            <div
-                              key={step}
-                              className="flex flex-col items-center mx-4"
-                            >
-                              {/* round div */}
-                              <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                                  isActive ? "bg-[#33accc]" : "bg-gray-300"
-                                }`}
-                              >
-                                {isActive ? "✓" : ""}
-                              </div>
-
-                              {/* label */}
-                              <span className="mt-2 text-sm text-black">
-                                {step}
-                              </span>
-
-                              {/* connecting line (optional) */}
-                              {index < stepsOrder.length - 1 && (
-                                <div
-                                  className={`h-12 w-1 ${
-                                    index < currentStepIndex
-                                      ? "bg-[#33accc]"
-                                      : "bg-gray-300"
-                                  }`}
-                                ></div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center mt-4">
-                        <div className="loading-spinner border-4 border-t-[#33accc] border-gray-300 rounded-full w-8 h-8 animate-spin"></div>
-                        <p className="mt-3 text-black text-xl font-medium">
-                          Processing your order...
-                        </p>
-                      </div>
                     )}
                   </div>
                 </div>
