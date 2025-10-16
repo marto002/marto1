@@ -51,8 +51,7 @@ export default function Contact() {
           </div>
           <div className="flex">
           <p className="text-[#999] font-semibold">Address : </p>
-          <div className="flex flex-col"><p> 9546 Rachel Road Clay
-          Township </p><p> MI, U.S.A.</p></div>
+          <div className="flex flex-col"><p>Airway Blvd, California City, CA 93505 </p><p> MI, U.S.A.</p>  </div>
           </div>
         </div>
       </section>
